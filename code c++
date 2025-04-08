@@ -1,0 +1,88 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class Pizza
+{
+    private:
+        int type_of_pizza;
+        int size;
+        int cheese_toppings;
+        int pepperoni_toppings;
+        map<int, string> pizza_type;
+        map<int, string> pizza_size;
+    public:
+        Pizza(void)
+        {
+            type_of_pizza = 0;
+            size = 0;
+            cheese_toppings = 0;
+            pepperoni_toppings = 0;
+            pizza_type[1] = "deep dish";
+            pizza_type[2] = "hand tossed";
+            pizza_type[3] = "pan";
+            pizza_size[1] = "small";
+            pizza_size[2] = "medium";
+            pizza_size[3] = "large";
+        }
+        void accessor(void)
+        {
+            cout << pizza_type[type_of_pizza] << endl;
+            cout << pizza_type[size] << endl;
+            cout << cheese_toppings << endl;
+            cout << pepperoni_toppings << endl;
+        }
+        void mutator(int pizza_types,int sizes,int first_toppings,int second_toppings)
+        {
+            type_of_pizza = pizza_types;
+            size = sizes;
+            cheese_toppings = first_toppings;
+            pepperoni_toppings = second_toppings;
+        }
+
+        void outputDescription(void)
+        {
+            cout << "pizza_type : " << pizza_type[type_of_pizza] << endl;
+            cout << "pizza_size : " << pizza_size[size] << endl;
+            cout << "the number of cheese toppings : " << cheese_toppings << endl;
+            cout << "the number of pepperoni toppings : " << pepperoni_toppings << endl << endl;
+        }
+
+        double computePrice(void)
+        {
+            if (size == 1)
+                return 10 + 2 * (cheese_toppings + pepperoni_toppings);
+            else if (size == 2)
+                return 14 + 2 * (cheese_toppings + pepperoni_toppings);
+            else if (size == 3)
+                return 17 + 2 * (cheese_toppings + pepperoni_toppings);
+        }
+};
+
+int main()
+{
+    Pizza pizza;
+    int money = 0;
+    pizza.mutator(1,2,45,8);
+    pizza.outputDescription();
+    money = pizza.computePrice();
+    cout << money << "\n\n";
+    pizza.mutator(2,3,11,89);
+    pizza.outputDescription();
+    money = pizza.computePrice();
+    cout << money << "\n\n";
+    pizza.mutator(3,1,15,30);
+    pizza.outputDescription();
+    money = pizza.computePrice();
+    cout << money << "\n\n";
+    return 0;
+}
