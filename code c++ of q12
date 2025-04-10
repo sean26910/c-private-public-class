@@ -1,0 +1,96 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class BoxOfProduce
+{
+private:
+    string bundles[3];
+public:
+    BoxOfProduce(string items1,string items2,string items3)
+    {
+        bundles[0] = items1;
+        bundles[1] = items2;
+        bundles[2] = items3;
+    }
+    void accesstor() //get
+    {
+        for (int i = 0; i < 3; i++)
+            cout << bundles[i] << " ";
+        cout << endl;
+    }
+    void mutator(int index,string items)
+    {
+        bundles[index] = items;
+    }
+    void output()
+    {
+        cout << "the content in the box\n";
+        for (int i = 0; i < 3; i++)
+            cout << i << " : " << bundles[i] << endl;
+        cout << endl;
+    }
+};
+
+int main()
+{
+    srand(time(NULL));
+    ifstream ifs;
+    string produce;
+    int choice, choose, index;
+    vector<string> stor;
+    ifs.open("C://Users//User//OneDrive//桌面//produce.txt");
+    if (!ifs.is_open())
+    {
+        cout << "failed to open file\n";
+        return 1;
+    }
+    while (getline(ifs, produce))
+        stor.push_back(produce);
+
+    BoxOfProduce box(stor[rand() % 5], stor[rand() % 5], stor[rand() % 5]);
+    box.output();
+
+    cout << "do you want to substitute? (1:yes 0:no)\n";
+    while (cin >> choice)
+    {
+        if (choice == 1 || choice == 0)
+            break;
+        else
+            cout << "not valid input,please try again\n";
+    }
+    cout << endl;
+    if (choice == 1)
+    {
+        cout << "which one do you want to substitute? (input index 0,1,2)\n";
+        while (cin >> index)
+        {
+            if (index >= 0 && index <= 2)
+                break;
+            else
+                cout << "not valid input,please try again\n";
+        }
+        cout << endl;
+        cout << "please choose one to replace (0:Broccoli 1:Tomato 2:Kiwi 3:Kale 4:Tomatillo)\n";
+        while (cin >> choose)
+        {
+            if (choose >= 0 && choose <= 5)
+                break;
+            else
+                cout << "not valid input,please try again\n";
+        }
+        cout << endl;
+        box.mutator(index, stor[choose]);
+        box.output();
+    }
+    return 0;
+}
