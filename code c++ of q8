@@ -1,0 +1,59 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class Money // 1 dollar equals 100 cents
+{
+private:
+    int dollars;
+    int cents;
+public:
+    Money()
+    {
+        dollars = 0;
+        cents = 0;
+    }
+    int get_dollars()
+    {
+        return dollars;
+    }
+    int get_cents()
+    {
+        return cents;
+    }
+    void mutator(int dollar,int cent) //set
+    {
+        dollars = dollar;
+        cents = cent;
+    }
+    double monetary_amount()
+    {
+        return dollars + cents / 100.0;
+    }
+};
+
+int main()
+{
+    Money money1, money2, money3;
+    money1.mutator(300, 75);
+    money2.mutator(450, 63);
+    money3.mutator(100, 59);
+
+    cout << "dollars of money1: " << money1.get_dollars() << " cents of money1: " << money1.get_cents() << endl;
+    cout << "dollars of money2: " << money2.get_dollars() << " cents of money2: " << money2.get_cents() << endl;
+    cout << "dollars of money3: " << money3.get_dollars() << " cents of money3: " << money3.get_cents() << endl;
+    cout << endl;
+    cout << "the monetary amount of money1: " << money1.monetary_amount() << endl;
+    cout << "the monetary amount of money2: " << money2.monetary_amount() << endl;
+    cout << "the monetary amount of money3: " << money3.monetary_amount() << endl;
+    return 0;
+}
