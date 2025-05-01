@@ -1,0 +1,108 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class Complex
+{
+private:
+    double real;
+    double imaginary;
+public:
+    Complex()
+    {
+        real = 0;
+        imaginary = 0;
+    }
+    Complex(double realpart)
+    {
+        real = realpart;
+        imaginary = 0;
+    }
+    Complex(double realpart,double imaginary_part)
+    {
+        real = realpart;
+        imaginary = imaginary_part;
+    }
+    bool operator==(const Complex& com1)
+    {
+        return (this->real == com1.real) && (this->imaginary == com1.imaginary);
+    }
+
+    Complex operator+(const Complex& com1)
+    {
+        Complex tmp;
+        tmp.real = this->real + com1.real;
+        tmp.imaginary = this->imaginary + com1.imaginary;
+        return tmp;
+    }
+
+    Complex operator-(const Complex& com1)
+    {
+        Complex tmp;
+        tmp.real = this->real - com1.real;
+        tmp.imaginary = this->imaginary - com1.imaginary;
+        return tmp;
+    }
+
+    Complex operator*(const Complex& com1)
+    {
+        Complex tmp;
+        tmp.real = this->real * com1.real - this->imaginary * com1.imaginary;
+        tmp.imaginary = this->real * com1.imaginary + this->imaginary * com1.real;
+        return tmp;
+    }
+
+    friend ostream& operator<<(ostream& out, const Complex& com1);
+    friend istream& operator>>(istream& in, Complex& com1);
+};
+
+ostream& operator<<(ostream& out, const Complex& com1)
+{
+    out << com1.real << " + (" << com1.imaginary << ") i";
+    return out;
+}
+
+istream& operator>>(istream& in, Complex& com1)
+{
+    cout << "real,imaginary: ";
+    in >> com1.real;
+    in >> com1.imaginary;
+    return in;
+}
+
+int main()
+{ 
+    const Complex i(0, 1);
+    bool same;
+    Complex com1;
+    Complex com2;
+    Complex com3;
+
+    cout << "com1:\n";
+    cin >> com1;
+    cout << endl;
+    cout << "com2:\n";
+    cin >> com2;
+    cout << endl;
+    
+    same = com1 == com2;
+    cout << same << endl;
+
+    com3 = com1 + com2;
+    cout << com3 << endl;
+
+    com3 = com1 - com2;
+    cout << com3 << endl;
+
+    com3 = com1 * com2;
+    cout << com3 << endl;
+}
