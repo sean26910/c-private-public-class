@@ -1,0 +1,55 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class MyInteger
+{
+private:
+    int integer;
+public:
+    MyInteger(int id=0)
+    {
+        integer = abs(id);
+    }
+    int accessor()
+    {
+        return integer;
+    }
+    void mutator(int id) //set
+    {
+        integer = abs(id);
+    }
+
+    int operator [](const int &pos)
+    {
+        stringstream s1;
+        stringstream s2;
+        string str;
+        s1 << integer;
+        s1 >> str;
+        reverse(str.begin(), str.end());
+        if (pos<0 || pos>=str.size())
+            return -1;
+        else
+            return str[pos]-'0';
+    }
+};
+
+int main()
+{ 
+    MyInteger myinteger;
+    myinteger.mutator(78644564);
+    for (int i = 0; i < 8; i++)
+        cout << myinteger[i];
+    cout << endl;
+    return 0;
+}
