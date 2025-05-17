@@ -1,0 +1,127 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class Subscriber
+{
+    private:
+        string name;
+        int numChannels;
+        string* channelList;
+    public:
+        Subscriber()
+        {
+            name = "";
+            numChannels = 0;
+            channelList = new string[1000];
+        }
+        ~Subscriber()
+        {
+            delete[]channelList;
+            cout << "deconstructor called " << name << endl << endl;
+        }
+        void setName(string na)
+        {
+            name = na;
+        }
+        void set_numChannels(int num)
+        {
+            numChannels = num;
+        }
+        void set_channelList(string channel_name,int count)
+        {
+            delete[] channelList;
+            channelList = new string[count];
+            for (int i = 0; i < count; i++)
+                getline(cin, channelList[i]);
+        }
+        string getName()
+        {
+            return name;
+        }
+        int get_numChannels()
+        {
+            return numChannels;
+        }
+        string* get_channelList()
+        {
+            return channelList;
+        }
+
+        void inputFromUser()
+        {
+            cout << "Enter subscriber name: ";
+            getline(cin, name);
+
+            cout << "Enter number of channels: ";
+            cin >> numChannels;
+            cin.ignore();
+
+            delete[] channelList;
+            channelList = new string[numChannels];
+            for (int i = 0; i < numChannels; i++)
+            {
+                cout << "Enter channel name " << i + 1 << " : ";
+                getline(cin, channelList[i]);
+            }
+            cout << endl;
+        }
+        
+        void get_names_channels()
+        {
+            cout << "Subscriber name: " << name << endl;
+            if (channelList == nullptr)
+                cout << "channelList is empty\n";
+            else
+            {
+                for (int i = 0; i < numChannels; i++)
+                {
+                    cout << "channel name " << i + 1 << " : " << channelList[i] << endl;
+                }
+            }
+            cout << endl;
+        }
+
+        void reset()
+        {
+            numChannels = 0;
+            delete[] channelList;
+            channelList = nullptr;
+        }
+
+        Subscriber& operator=(const Subscriber& other)
+        {
+            this->name = other.name;
+            this->numChannels = other.numChannels;
+            this->channelList = new string[numChannels];
+            for (int i = 0; i < numChannels; i++)
+            {
+                this->channelList[i] = other.channelList[i];
+            }
+            return *this;
+        }
+};
+
+int main()
+{ 
+    Subscriber s1,s2;
+    s1.inputFromUser();
+    s1.get_names_channels();
+    s2 = s1;
+    s2.get_names_channels();
+    s1.inputFromUser();
+    s1.get_names_channels();
+    s2.get_names_channels();
+    s2.reset();
+    s2.inputFromUser();
+    s2.get_names_channels();
+}
