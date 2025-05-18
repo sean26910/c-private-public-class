@@ -1,0 +1,147 @@
+#include <iostream>
+#include <algorithm>
+#include <iomanip>
+#include <fstream>
+#include <ostream>
+#include <vector>
+#include <map>
+#include <cstring>
+#include <string>
+#include <cmath>
+#include <sstream>
+using namespace std;
+
+class Television
+{
+private:
+	string displayType;
+	double dimension;
+	string* connectivitySupport;
+	int count;
+public:
+	Television()
+	{
+		displayType = "";
+		dimension = 0;
+		count = 0;
+		connectivitySupport = nullptr;
+	}
+	Television(string type, double dimen, string* connect,int cou)
+	{
+		displayType = type;
+		dimension = dimen;
+		count = cou;
+		connectivitySupport = new string[count];
+		for (int i = 0; i < count; i++)
+			connectivitySupport[i] = connect[i];
+	}
+	Television(const Television& tele)
+	{
+		displayType = tele.displayType;
+		dimension = tele.dimension;
+		count = tele.count;
+		connectivitySupport = new string[count];
+		for (int i = 0; i < count; i++)
+			connectivitySupport[i] = tele.connectivitySupport[i];
+	}
+	void set_displayType(string type)
+	{
+		displayType = type;
+	}
+	void set_dimension(double dimen)
+	{
+		dimension = dimen;
+	}
+	void set_connectivitySupport(string* connect,int cou)
+	{
+		delete[] connectivitySupport;
+		count = cou;
+		connectivitySupport = new string[count];
+		for (int i = 0; i < count; i++)
+			connectivitySupport[i] = connect[i];
+	}
+	string get_displayType()
+	{
+		return displayType;
+	}
+	double get_dimension()
+	{
+		return dimension;
+	}
+	string* get_connectivitySupport()
+	{
+		return connectivitySupport;
+	}
+
+	void display()
+	{
+		cout << "Display Type: " << displayType << endl;
+		cout << "Dimension: " << dimension << " inches" << endl;
+		cout << "Connectivity Support: ";
+		for (int i = 0; i < count; ++i)
+			cout << connectivitySupport[i] << " ";
+		cout << endl << endl;
+	}
+};
+
+int main()
+{ 
+	string type, * support, choice;
+	double dim;
+	int cou, num_of_tele;
+
+	cout << "Enter default display type: ";
+	cin >> type;
+	cout << "Enter default dimension: ";
+	cin >> dim;
+	cout << "Enter number of default connectiviry modes: ";
+	cin >> cou;
+
+	support = new string[cou];
+	for (int i = 0; i < cou; i++)
+	{
+		cout << "Enter connectivity mode " << i + 1 << " : ";
+		cin >> support[i];
+	}
+
+	Television defaultTV(type, dim, support, cou);
+	Television tv(defaultTV);
+	cout << "Enter number of televisions: ";
+	cin >> num_of_tele;
+	Television* list = new Television[num_of_tele];
+
+	for (int i = 0; i < num_of_tele; i++)
+	{
+		cout << "\nCustomize Television #" << i + 1 << "? (yes/no): ";
+		cin >> choice;
+
+		if (choice == "yes")
+		{
+			cout << "Enter new display type: ";
+			cin >> type;
+
+			cout << "Enter new dimension: ";
+			cin >> dim;
+
+			cout << "Enter number of connectivity modes: ";
+			cin >> cou;
+
+			support = new string[cou];
+			for (int j = 0; j < cou; ++j) {
+				cout << "Enter connectivity mode " << j + 1 << ": ";
+				cin >> support[j];
+			}
+			
+			list[i] = Television(type, dim, support, cou);
+		}
+		else
+			list[i] = Television(defaultTV);
+	}
+
+	cout << "\nTelevision List:\n\n";
+	for (int i = 0; i < num_of_tele; i++) 
+	{
+		cout << "\nTelevision #" << i + 1 << ":\n";
+		list[i].display();
+	}
+}
