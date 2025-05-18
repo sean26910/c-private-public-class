@@ -22,7 +22,7 @@ class Subscriber
         {
             name = "";
             numChannels = 0;
-            channelList = new string[1000];
+            channelList = nullptr;
         }
         ~Subscriber()
         {
