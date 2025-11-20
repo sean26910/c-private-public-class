@@ -1,0 +1,38 @@
+#include<iostream>
+#include<climits>
+#include<cstring>
+#include<iomanip>
+#include<sstream>
+using namespace std;
+int main()
+{
+   
+    int t;
+    cin>>t;
+    cin.ignore();
+    while(t--)
+    {
+        stringstream ss;
+        string data[100000],da,ans[100000],arrayp,st;
+        int index=0,input,indexarray[100000],number;
+        getline(cin,arrayp);
+        getline(cin,arrayp);
+        ss<<arrayp;
+        while(ss>>number)
+            indexarray[index++]=number;
+        index = 0;
+        getline(cin,da);
+        ss.clear();
+        ss.str("");
+        ss<<da;
+        while(ss>>st)
+            data[index++]=st;
+        
+
+        for(int i=0;i<index;i++)
+           ans[indexarray[i]-1] = data[i];
+
+        for(int i=0;i<index;i++)
+            cout<<ans[i]<<endl;
+    }
+}
